@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ByteForge Systems — Custom Builds · Repair · 3D Printing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0c10;
+  --bg2:#11141b;
+  --surface:#161a24;
+  --border:#1e2433;
+  --accent:#00e5a0;
+  --accent2:#00b8ff;
+  --accent-dim:rgba(0,229,160,.12);
+  --text:#e4e8f1;
+  --text-dim:#8891a5;
+  --font-display:'Chakra Petch',sans-serif;
+  --font-body:'Outfit',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.6;overflow-x:hidden}
+a{color:var(--accent);text-decoration:none;transition:color .2s}
+a:hover{color:var(--accent2)}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(16px);background:rgba(10,12,16,.8);border-bottom:1px solid var(--border)}
+.logo{font-family:var(--font-display);font-weight:700;font-size:1.25rem;letter-spacing:.04em;display:flex;align-items:center;gap:.6rem}
+.logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:6px;display:grid;place-items:center;font-size:.85rem;color:var(--bg);font-weight:700}
+.nav-links{display:flex;gap:2rem;list-style:none;font-size:.9rem;font-weight:500}
+.nav-links a{color:var(--text-dim);position:relative}
+.nav-links a:hover{color:var(--accent)}
+.nav-cta{background:var(--accent);color:var(--bg);padding:.55rem 1.4rem;border-radius:6px;font-weight:600;font-size:.85rem;font-family:var(--font-body);border:none;cursor:pointer;transition:all .25s}
+.nav-cta:hover{background:var(--accent2);color:var(--bg);transform:translateY(-1px);box-shadow:0 4px 20px rgba(0,229,160,.3)}
+.menu-toggle{display:none;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;padding:6rem 2rem 4rem;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:
+  linear-gradient(var(--border) 1px,transparent 1px),
+  linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:60px 60px;opacity:.3;mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,black,transparent)}
+.hero-glow{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(0,229,160,.08),transparent 70%);top:10%;left:50%;transform:translateX(-50%);pointer-events:none}
+.hero-glow2{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(0,184,255,.06),transparent 70%);bottom:10%;right:10%;pointer-events:none}
+.hero-content{text-align:center;max-width:800px;position:relative;z-index:2}
+.hero-tag{font-family:var(--font-mono);font-size:.8rem;color:var(--accent);text-transform:uppercase;letter-spacing:.2em;margin-bottom:1.5rem;display:inline-flex;align-items:center;gap:.5rem;background:var(--accent-dim);padding:.4rem 1rem;border-radius:100px;border:1px solid rgba(0,229,160,.2)}
+.hero-tag::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+h1{font-family:var(--font-display);font-size:clamp(2.5rem,6vw,4.5rem);font-weight:700;line-height:1.1;letter-spacing:-.01em;margin-bottom:1.5rem}
+h1 .gradient{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:1.15rem;color:var(--text-dim);max-width:560px;margin:0 auto 2.5rem;font-weight:300}
+.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.8rem;border-radius:8px;font-weight:600;font-size:.95rem;font-family:var(--font-body);cursor:pointer;transition:all .25s;border:none}
+.btn-primary{background:var(--accent);color:var(--bg)}
+.btn-primary:hover{background:var(--accent2);color:var(--bg);transform:translateY(-2px);box-shadow:0 6px 30px rgba(0,229,160,.25)}
+.btn-outline{background:transparent;color:var(--text);border:1.5px solid var(--border)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+
+/* ── SECTIONS ── */
+section{padding:6rem 2rem}
+.section-label{font-family:var(--font-mono);font-size:.75rem;color:var(--accent);text-transform:uppercase;letter-spacing:.2em;margin-bottom:.75rem}
+.section-title{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;margin-bottom:1rem}
+.section-sub{color:var(--text-dim);max-width:560px;font-weight:300;font-size:1.05rem;margin-bottom:3rem}
+.center{text-align:center;margin-left:auto;margin-right:auto}
+.container{max-width:1140px;margin:0 auto}
+
+/* ── SERVICES ── */
+#services{background:var(--bg2)}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem}
+.service-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2.5rem;position:relative;overflow:hidden;transition:all .35s}
+.service-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));opacity:0;transition:opacity .35s}
+.service-card:hover::before{opacity:1}
+.service-icon{width:56px;height:56px;border-radius:12px;background:var(--accent-dim);display:grid;place-items:center;font-size:1.5rem;margin-bottom:1.5rem;border:1px solid rgba(0,229,160,.15)}
+.service-card h3{font-family:var(--font-display);font-size:1.3rem;margin-bottom:.75rem}
+.service-card p{color:var(--text-dim);font-size:.95rem;line-height:1.7;margin-bottom:1.25rem}
+.service-features{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.service-features li{font-size:.85rem;color:var(--text-dim);display:flex;align-items:center;gap:.5rem;font-family:var(--font-mono)}
+.service-features li::before{content:'→';color:var(--accent);font-weight:700}
+
+/* ── PROCESS ── */
+.process-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;counter-reset:step}
+.step{position:relative;padding:2rem;background:var(--surface);border:1px solid var(--border);border-radius:14px;counter-increment:step;transition:border-color .3s}
+.step:hover{border-color:var(--accent)}
+.step-num{font-family:var(--font-display);font-size:2.5rem;font-weight:700;color:rgba(0,229,160,.15);margin-bottom:.75rem}
+.step-num::before{content:counter(step,decimal-leading-zero)}
+.step h3{font-family:var(--font-display);font-size:1.05rem;margin-bottom:.5rem}
+.step p{color:var(--text-dim);font-size:.88rem}
+
+/* ── BUILDS (Gallery) ── */
+#builds{background:var(--bg2)}
+.builds-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.build-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:all .35s}
+.build-card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.build-img{height:200px;background:linear-gradient(135deg,var(--bg),var(--surface));display:grid;place-items:center;position:relative;overflow:hidden}
+.build-img::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,229,160,.05),rgba(0,184,255,.05))}
+.build-img svg{width:64px;height:64px;opacity:.4;position:relative;z-index:1}
+.build-body{padding:1.5rem}
+.build-tier{font-family:var(--font-mono);font-size:.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:.15em;margin-bottom:.4rem}
+.build-card h3{font-family:var(--font-display);font-size:1.15rem;margin-bottom:.5rem}
+.build-card p{color:var(--text-dim);font-size:.88rem;margin-bottom:1rem}
+.build-specs{display:flex;flex-wrap:wrap;gap:.4rem}
+.spec-tag{font-family:var(--font-mono);font-size:.7rem;background:var(--accent-dim);color:var(--accent);padding:.25rem .6rem;border-radius:4px;border:1px solid rgba(0,229,160,.12)}
+
+/* ── PRICING ── */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+.price-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2.5rem;position:relative;transition:all .35s}
+.price-card:hover{border-color:var(--accent);transform:translateY(-3px)}
+.price-card.featured{border-color:var(--accent);box-shadow:0 0 40px rgba(0,229,160,.08)}
+.price-card.featured::before{content:'MOST POPULAR';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--accent);color:var(--bg);font-family:var(--font-mono);font-size:.65rem;padding:.3rem .8rem;border-radius:100px;font-weight:600;letter-spacing:.1em}
+.price-name{font-family:var(--font-display);font-size:1.2rem;margin-bottom:.25rem}
+.price-amount{font-family:var(--font-display);font-size:2.2rem;font-weight:700;margin:.75rem 0}
+.price-amount span{font-size:.9rem;color:var(--text-dim);font-weight:400}
+.price-desc{color:var(--text-dim);font-size:.88rem;margin-bottom:1.5rem}
+.price-list{list-style:none;display:flex;flex-direction:column;gap:.65rem;margin-bottom:2rem}
+.price-list li{font-size:.88rem;color:var(--text-dim);display:flex;align-items:flex-start;gap:.5rem}
+.price-list li::before{content:'✓';color:var(--accent);font-weight:700;flex-shrink:0}
+
+/* ── CONTACT ── */
+#contact{background:var(--bg2)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.contact-info h3{font-family:var(--font-display);font-size:1.5rem;margin-bottom:1rem}
+.contact-info p{color:var(--text-dim);margin-bottom:2rem;font-size:.95rem}
+.contact-detail{display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem}
+.contact-detail .icon{width:44px;height:44px;border-radius:10px;background:var(--accent-dim);display:grid;place-items:center;font-size:1.1rem;flex-shrink:0;border:1px solid rgba(0,229,160,.12)}
+.contact-detail .label{font-size:.75rem;color:var(--text-dim);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.1em}
+.contact-detail .value{font-size:.95rem;margin-top:.15rem}
+.contact-form{display:flex;flex-direction:column;gap:1rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-group label{display:block;font-size:.8rem;font-family:var(--font-mono);color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:.75rem 1rem;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font-body);font-size:.9rem;transition:border-color .25s;outline:none}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--accent)}
+.form-group textarea{resize:vertical;min-height:120px}
+.form-group select option{background:var(--bg)}
+
+/* ── FOOTER ── */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem;text-align:center}
+.footer-inner{max-width:1140px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-size:.85rem;color:var(--text-dim)}
+.footer-links{display:flex;gap:1.5rem;list-style:none}
+.footer-links a{color:var(--text-dim);font-size:.85rem}
+.footer-links a:hover{color:var(--accent)}
+
+/* ── ANIMATIONS ── */
+.fade-up{opacity:0;transform:translateY(30px);transition:all .6s cubic-bezier(.22,1,.36,1)}
+.fade-up.visible{opacity:1;transform:none}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--bg2);border-bottom:1px solid var(--border);padding:1.5rem 2rem;gap:1rem}
+  .nav-links.open{display:flex}
+  .menu-toggle{display:block}
+  .hero{padding:7rem 1.5rem 3rem}
+  section{padding:4rem 1.5rem}
+  .contact-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .footer-inner{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-icon"></div>
+    Prismatic Custom PC's
+  </div>
+  <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle menu">☰</button>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#builds">Builds</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta" style="text-decoration:none">Get a Quote</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content fade-up">
+    <div class="hero-tag">Now accepting builds for Summer 2026</div>
+    <h1>We Build Machines<br>That <span class="gradient">Perform</span></h1>
+    <p>Custom PCs engineered to your exact specs, expert repair that brings hardware back to life, and precision 3D printing — all under one roof.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-primary">Start Your Build →</a>
+      <a href="#services" class="btn btn-outline">Explore Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="center">
+      <div class="section-label fade-up">What We Do</div>
+      <h2 class="section-title fade-up">Three Services. One Standard.</h2>
+      <p class="section-sub center fade-up">Every machine we touch gets the same obsessive attention to detail — whether it's a full custom build, a tricky repair, or a one-off 3D print.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <div class="service-icon">🖥️</div>
+        <h3>Custom PC Builds</h3>
+        <p>From workstations to gaming rigs, we hand-select every component, route every cable, and stress-test everything before it ships. Your specs, our craftsmanship.</p>
+        <ul class="service-features">
+          <li>Component sourcing &amp; compatibility checks</li>
+          <li>Professional cable management</li>
+          <li>Overclocking &amp; thermal optimization</li>
+          <li>72-hr burn-in stress testing</li>
+          <li>Custom OS installation &amp; drivers</li>
+        </ul>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">🔧</div>
+        <h3>Computer Repair</h3>
+        <p>Diagnostics that actually find the problem, repairs that actually last. We handle everything from simple upgrades to complex board-level troubleshooting.</p>
+        <ul class="service-features">
+          <li>Hardware diagnostics &amp; triage</li>
+          <li>Component replacement &amp; upgrades</li>
+          <li>Data recovery &amp; backup</li>
+          <li>Virus &amp; malware removal</li>
+          <li>Laptop screen &amp; battery replacement</li>
+        </ul>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">🖨️</div>
+        <h3>3D Printing</h3>
+        <p>Need a custom bracket, enclosure, or prototype? We print functional parts in PLA, PETG, and TPU with tight tolerances and fast turnarounds.</p>
+        <ul class="service-features">
+          <li>FDM printing in multiple materials</li>
+          <li>Custom part design assistance</li>
+          <li>Rapid prototyping</li>
+          <li>Small batch production runs</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="container">
+    <div class="center">
+      <div class="section-label fade-up">How It Works</div>
+      <h2 class="section-title fade-up">From Brief to Build</h2>
+      <p class="section-sub center fade-up">We keep it simple. No jargon-heavy consultations, no upselling — just a clean process from start to finish.</p>
+    </div>
+    <div class="process-steps">
+      <div class="step fade-up">
+        <div class="step-num"></div>
+        <h3>Reach Out</h3>
+        <p>Tell us what you need, a build spec, a broken machine, or a 3D model. We'll respond within 24 hours.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num"></div>
+        <h3>Get a Quote</h3>
+        <p>We scope the work, price it transparently, and walk you through every line item. No surprises.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num"></div>
+        <h3>We Build / Fix / Print</h3>
+        <p>Your project goes into our queue. We send progress updates and photos along the way.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num"></div>
+        <h3>Pickup or Ship</h3>
+        <p>Quality checked, packaged right, and ready. Local pickup or insured shipping anywhere in the US.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUILDS GALLERY -->
+<section id="builds">
+  <div class="container">
+    <div class="center">
+      <div class="section-label fade-up">Recent Work</div>
+      <h2 class="section-title fade-up">Featured Builds</h2>
+      <p class="section-sub center fade-up">A few machines we've put together recently. Every build is unique and these should give you a sense of what's possible.</p>
+    </div>
+    <div class="builds-grid">
+      <div class="build-card fade-up">
+        <div class="build-img">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="build-body">
+          <div class="build-tier">Gaming</div>
+          <h3>The Nightfall</h3>
+          <p>High-refresh 1440p gaming rig with All-In-One cooling and a blacked-out aesthetic.</p>
+          <div class="build-specs">
+            <span class="spec-tag">RTX 5070</span>
+            <span class="spec-tag">Intel Ultra Core 7 265k</span>
+            <span class="spec-tag">32GB DDR5</span>
+            <span class="spec-tag">Liquid Cooled</span>
+          </div>
+        </div>
+      </div>
+      <div class="build-card fade-up">
+        <div class="build-img">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="build-body">
+          <div class="build-tier">Workstation</div>
+          <h3>The Workhorse</h3>
+          <p>Video editing and 3D rendering beast built for a local production studio.</p>
+          <div class="build-specs">
+            <span class="spec-tag">RTX 4080</span>
+            <span class="spec-tag">i7-11700K</span>
+            <span class="spec-tag">64GB DDR4</span>
+            <span class="spec-tag">4TB NVMe</span>
+          </div>
+        </div>
+      </div>
+      <div class="build-card fade-up">
+        <div class="build-img">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="build-body">
+          <div class="build-tier">Compact</div>
+          <h3>The Ember</h3>
+          <p>ITX living room build that punches way above its size. Whisper quiet under load.</p>
+          <div class="build-specs">
+            <span class="spec-tag">RTX 4060 Ti</span>
+            <span class="spec-tag">Ryzen 5 7600</span>
+            <span class="spec-tag">32GB DDR5</span>
+            <span class="spec-tag">NR200P</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <div class="center">
+      <div class="section-label fade-up">Pricing</div>
+      <h2 class="section-title fade-up">Transparent Rates</h2>
+      <p class="section-sub center fade-up">No hidden fees. Labor rates are flat, parts are billed at cost, and quotes are always free.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card fade-up">
+        <div class="price-name">Repair &amp; Diagnostics</div>
+        <div class="price-amount">$50<span> diagnostic fee</span></div>
+        <p class="price-desc">Applied toward repair cost if you proceed.</p>
+        <ul class="price-list">
+          <li>Full hardware &amp; software diagnostic</li>
+          <li>Written report of findings</li>
+          <li>Transparent repair quote</li>
+          <li>$75/hr labor for repairs</li>
+          <li>Parts billed at cost</li>
+        </ul>
+        <a href="#contact" class="btn btn-outline" style="width:100%;justify-content:center">Book Diagnostic</a>
+      </div>
+      <div class="price-card featured fade-up">
+        <div class="price-name">Custom Build</div>
+        <div class="price-amount">$150+<span> build fee</span></div>
+        <p class="price-desc">Base assembly fee. Complexity and custom work scale up.</p>
+        <ul class="price-list">
+          <li>Free build consultation</li>
+          <li>Component sourcing at cost</li>
+          <li>Full assembly &amp; cable management</li>
+          <li>OS install, drivers &amp; updates</li>
+          <li>72-hr stress test included</li>
+          <li>1-year labor warranty</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center">Start a Build</a>
+      </div>
+      <div class="price-card fade-up">
+        <div class="price-name">3D Printing</div>
+        <div class="price-amount">Quote<span> based</span></div>
+        <p class="price-desc">Pricing by material, size, and complexity.</p>
+        <ul class="price-list">
+          <li>PLA, PETG, TPU materials</li>
+          <li>Design review included</li>
+          <li>48-hr turnaround on most jobs</li>
+          <li>Bulk discounts available</li>
+          <li>File prep &amp; slicing included</li>
+        </ul>
+        <a href="#contact" class="btn btn-outline" style="width:100%;justify-content:center">Get a Quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="center">
+      <div class="section-label fade-up">Get in Touch</div>
+      <h2 class="section-title fade-up">Let's Talk About Your Project</h2>
+      <p class="section-sub center fade-up">Drop us a message and we'll get back to you within 24 hours. Quotes are always free.</p>
+    </div>
+    <div class="contact-grid fade-up">
+      <div class="contact-info">
+        <h3>Contact Details</h3>
+        <p>We're based on Long Island, NY. Local pickup available, or we ship nationwide with full insurance.</p>
+        <div class="contact-detail">
+          <div class="icon">📧</div>
+          <div><div class="label">Email</div><div class="value">hello@prismaticcustompcs.com</div></div>
+        </div>
+        <div class="contact-detail">
+          <div class="icon">📱</div>
+          <div><div class="label">Phone</div><div class="value">(631) 346-8635</div></div>
+        </div>
+        <div class="contact-detail">
+          <div class="icon">📍</div>
+          <div><div class="label">Location</div><div class="value">Long Island, New York</div></div>
+        </div>
+        <div class="contact-detail">
+          <div class="icon">⏰</div>
+          <div><div class="label">Hours</div><div class="value">Mon–Fri 10am–6pm · Sat by appointment</div></div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" placeholder="Your name">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="you@email.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Service</label>
+          <select>
+            <option value="">Select a service...</option>
+            <option>Custom PC Build</option>
+            <option>Computer Repair</option>
+            <option>3D Printing</option>
+            <option>Other / Not Sure</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Tell us about your project — budget, timeline, specs, what's broken, what you need printed..."></textarea>
+        </div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="alert('To make this form functional, connect it to Formspree.io or Netlify Forms — details in the hosting guide!')">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-copy">© 2026 Prismatic Custom PC's. All rights reserved.</div>
+    <ul class="footer-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+// Scroll animations
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+// Smooth scroll for nav links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t) t.scrollIntoView({ behavior:'smooth' });
+    document.querySelector('.nav-links')?.classList.remove('open');
+  });
+});
+</script>
+</body>
+</html>
