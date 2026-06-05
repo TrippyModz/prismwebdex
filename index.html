@@ -28,7 +28,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-he
 a{color:var(--accent);text-decoration:none;transition:color .2s}
 a:hover{color:var(--accent2)}
 
-/* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(16px);background:rgba(10,12,16,.8);border-bottom:1px solid var(--border)}
 .logo{font-family:var(--font-display);font-weight:700;font-size:1.25rem;letter-spacing:.04em;display:flex;align-items:center;gap:.6rem}
 .logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:6px;display:grid;place-items:center;font-size:.85rem;color:var(--bg);font-weight:700}
@@ -39,7 +38,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;display:fl
 .nav-cta:hover{background:var(--accent2);color:var(--bg);transform:translateY(-1px);box-shadow:0 4px 20px rgba(0,229,160,.3)}
 .menu-toggle{display:none;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer}
 
-/* ── HERO ── */
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;padding:6rem 2rem 4rem;overflow:hidden}
 .hero-grid{position:absolute;inset:0;background-image:
   linear-gradient(var(--border) 1px,transparent 1px),
@@ -61,7 +59,6 @@ h1 .gradient{background:linear-gradient(135deg,var(--accent),var(--accent2));-we
 .btn-outline{background:transparent;color:var(--text);border:1.5px solid var(--border)}
 .btn-outline:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
 
-/* ── SECTIONS ── */
 section{padding:6rem 2rem}
 .section-label{font-family:var(--font-mono);font-size:.75rem;color:var(--accent);text-transform:uppercase;letter-spacing:.2em;margin-bottom:.75rem}
 .section-title{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;margin-bottom:1rem}
@@ -69,7 +66,6 @@ section{padding:6rem 2rem}
 .center{text-align:center;margin-left:auto;margin-right:auto}
 .container{max-width:1140px;margin:0 auto}
 
-/* ── SERVICES ── */
 #services{background:var(--bg2)}
 .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem}
 .service-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2.5rem;position:relative;overflow:hidden;transition:all .35s}
@@ -83,7 +79,6 @@ section{padding:6rem 2rem}
 .service-features li{font-size:.85rem;color:var(--text-dim);display:flex;align-items:center;gap:.5rem;font-family:var(--font-mono)}
 .service-features li::before{content:'→';color:var(--accent);font-weight:700}
 
-/* ── PROCESS ── */
 .process-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;counter-reset:step}
 .step{position:relative;padding:2rem;background:var(--surface);border:1px solid var(--border);border-radius:14px;counter-increment:step;transition:border-color .3s}
 .step:hover{border-color:var(--accent)}
@@ -92,7 +87,6 @@ section{padding:6rem 2rem}
 .step h3{font-family:var(--font-display);font-size:1.05rem;margin-bottom:.5rem}
 .step p{color:var(--text-dim);font-size:.88rem}
 
-/* ── BUILDS (Gallery) ── */
 #builds{background:var(--bg2)}
 .builds-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
 .build-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:all .35s}
@@ -100,6 +94,7 @@ section{padding:6rem 2rem}
 .build-img{height:200px;background:linear-gradient(135deg,var(--bg),var(--surface));display:grid;place-items:center;position:relative;overflow:hidden}
 .build-img::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,229,160,.05),rgba(0,184,255,.05))}
 .build-img svg{width:64px;height:64px;opacity:.4;position:relative;z-index:1}
+.build-img img{width:100%;height:100%;object-fit:cover;position:relative;z-index:1}
 .build-body{padding:1.5rem}
 .build-tier{font-family:var(--font-mono);font-size:.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:.15em;margin-bottom:.4rem}
 .build-card h3{font-family:var(--font-display);font-size:1.15rem;margin-bottom:.5rem}
@@ -107,7 +102,35 @@ section{padding:6rem 2rem}
 .build-specs{display:flex;flex-wrap:wrap;gap:.4rem}
 .spec-tag{font-family:var(--font-mono);font-size:.7rem;background:var(--accent-dim);color:var(--accent);padding:.25rem .6rem;border-radius:4px;border:1px solid rgba(0,229,160,.12)}
 
-/* ── PRICING ── */
+.hero-carousel{position:relative;border-radius:14px;overflow:hidden;margin-bottom:2.5rem;border:1px solid var(--border)}
+.hero-carousel-track{display:flex;transition:transform .5s cubic-bezier(.25,.8,.25,1)}
+.hero-carousel-slide{min-width:100%;position:relative}
+.hero-carousel-slide img{width:100%;height:420px;object-fit:cover;display:block}
+.hero-carousel-slide .slide-overlay{position:absolute;inset:0;background:linear-gradient(transparent 40%,rgba(10,12,16,.85));display:flex;align-items:flex-end;padding:2rem}
+.hero-carousel-slide .slide-info h3{font-family:var(--font-display);font-size:1.5rem;margin-bottom:.3rem}
+.hero-carousel-slide .slide-info p{color:var(--text-dim);font-size:.9rem}
+.hero-carousel-slide .slide-info .slide-specs{display:flex;gap:.4rem;margin-top:.6rem;flex-wrap:wrap}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(10,12,16,.7);border:1px solid var(--border);color:var(--text);font-size:1.1rem;cursor:pointer;display:grid;place-items:center;transition:all .2s;z-index:5;backdrop-filter:blur(8px)}
+.carousel-btn:hover{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.carousel-btn.prev{left:1rem}
+.carousel-btn.next{right:1rem}
+.carousel-dots{position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);display:flex;gap:.5rem;z-index:5}
+.carousel-dots .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .2s;border:none}
+.carousel-dots .dot.active{background:var(--accent);width:24px;border-radius:4px}
+
+.card-carousel{position:relative;height:200px;overflow:hidden}
+.card-carousel-track{display:flex;transition:transform .4s ease;height:100%}
+.card-carousel-track img{min-width:100%;height:100%;object-fit:cover}
+.card-carousel-track svg{min-width:100%;height:100%;padding:4rem;opacity:.4}
+.card-carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:rgba(10,12,16,.7);border:1px solid var(--border);color:var(--text);font-size:.75rem;cursor:pointer;display:grid;place-items:center;transition:all .2s;z-index:5;opacity:0}
+.build-card:hover .card-carousel-btn{opacity:1}
+.card-carousel-btn:hover{background:var(--accent);color:var(--bg)}
+.card-carousel-btn.prev{left:.5rem}
+.card-carousel-btn.next{right:.5rem}
+.card-carousel-dots{position:absolute;bottom:.5rem;left:50%;transform:translateX(-50%);display:flex;gap:.35rem;z-index:5}
+.card-carousel-dots .dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);border:none;cursor:pointer;transition:all .2s}
+.card-carousel-dots .dot.active{background:var(--accent)}
+
 .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
 .price-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2.5rem;position:relative;transition:all .35s}
 .price-card:hover{border-color:var(--accent);transform:translateY(-3px)}
@@ -121,7 +144,6 @@ section{padding:6rem 2rem}
 .price-list li{font-size:.88rem;color:var(--text-dim);display:flex;align-items:flex-start;gap:.5rem}
 .price-list li::before{content:'✓';color:var(--accent);font-weight:700;flex-shrink:0}
 
-/* ── CONTACT ── */
 #contact{background:var(--bg2)}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
 .contact-info h3{font-family:var(--font-display);font-size:1.5rem;margin-bottom:1rem}
@@ -138,7 +160,6 @@ section{padding:6rem 2rem}
 .form-group textarea{resize:vertical;min-height:120px}
 .form-group select option{background:var(--bg)}
 
-/* ── FOOTER ── */
 footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem;text-align:center}
 .footer-inner{max-width:1140px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
 .footer-copy{font-size:.85rem;color:var(--text-dim)}
@@ -146,11 +167,9 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem
 .footer-links a{color:var(--text-dim);font-size:.85rem}
 .footer-links a:hover{color:var(--accent)}
 
-/* ── ANIMATIONS ── */
 .fade-up{opacity:0;transform:translateY(30px);transition:all .6s cubic-bezier(.22,1,.36,1)}
 .fade-up.visible{opacity:1;transform:none}
 
-/* ── MOBILE ── */
 @media(max-width:768px){
   .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--bg2);border-bottom:1px solid var(--border);padding:1.5rem 2rem;gap:1rem}
   .nav-links.open{display:flex}
@@ -160,12 +179,14 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem
   .contact-grid{grid-template-columns:1fr}
   .form-row{grid-template-columns:1fr}
   .footer-inner{flex-direction:column;text-align:center}
+  .hero-carousel-slide img{height:260px}
+  .carousel-btn{width:32px;height:32px;font-size:.9rem}
+  .hero-carousel-slide .slide-info h3{font-size:1.15rem}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="logo">
     <div class="logo-icon"></div>
@@ -182,7 +203,6 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem
   <a href="#contact" class="nav-cta" style="text-decoration:none">Get a Quote</a>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-grid"></div>
   <div class="hero-glow"></div>
@@ -198,7 +218,6 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem
   </div>
 </section>
 
-<!-- SERVICES -->
 <section id="services">
   <div class="container">
     <div class="center">
@@ -246,7 +265,6 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem
   </div>
 </section>
 
-<!-- PROCESS -->
 <section id="process">
   <div class="container">
     <div class="center">
@@ -279,7 +297,6 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem
   </div>
 </section>
 
-<!-- BUILDS GALLERY -->
 <section id="builds">
   <div class="container">
     <div class="center">
@@ -287,10 +304,52 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem
       <h2 class="section-title fade-up">Featured Builds</h2>
       <p class="section-sub center fade-up">A few machines we've put together recently. Every build is unique and these should give you a sense of what's possible.</p>
     </div>
+
+    <div class="hero-carousel fade-up" id="heroCarousel">
+      <div class="hero-carousel-track" id="heroTrack">
+        <div class="hero-carousel-slide">
+          <img src="nightfallkepler.jpg" alt="The Nightfall - Front View">
+          <div class="slide-overlay"><div class="slide-info">
+            <h3>The Nightfall</h3>
+            <p>Interstellar-themed gaming rig with custom RGB lightbox</p>
+            <div class="slide-specs">
+              <span class="spec-tag">RTX 5070</span>
+              <span class="spec-tag">Intel Core Ultra 7 265k</span>
+              <span class="spec-tag">32GB DDR5</span>
+            </div>
+          </div></div>
+        </div>
+        <div class="hero-carousel-slide">
+          <img src="nightfalldesk2.jpg" alt="The Nightfall - RGB Detail">
+          <div class="slide-overlay"><div class="slide-info">
+            <h3>The Nightfall</h3>
+            <p>Custom 3D printed NIGHTFALL lightbox with addressable RGB</p>
+          </div></div>
+        </div>
+        <div class="hero-carousel-slide">
+          <img src="nightfalldarkmatter.jpg" alt="The Nightfall - Side View">
+          <div class="slide-overlay"><div class="slide-info">
+            <h3>The Nightfall</h3>
+            <p>270° tempered glass showcase with deep space aesthetic</p>
+          </div></div>
+        </div>
+      </div>
+      <button class="carousel-btn prev" onclick="heroSlide(-1)">◀</button>
+      <button class="carousel-btn next" onclick="heroSlide(1)">▶</button>
+      <div class="carousel-dots" id="heroDots"></div>
+    </div>
+
     <div class="builds-grid">
       <div class="build-card fade-up">
-        <div class="build-img">
-          <img src="nightfallkepler.jpg" alt="The Nightfall Build" style="width:100%;height:100%;object-fit:cover">
+        <div class="card-carousel" data-carousel>
+          <div class="card-carousel-track">
+            <img src="nightfallkepler.jpg" alt="The Nightfall">
+            <img src="nightfallcloseup.jpg" alt="The Nightfall - Detail">
+            <img src="nightfallsupernova.jpg" alt="The Nightfall - Exploration">
+          </div>
+          <button class="card-carousel-btn prev" onclick="cardSlide(this,-1)">◀</button>
+          <button class="card-carousel-btn next" onclick="cardSlide(this,1)">▶</button>
+          <div class="card-carousel-dots"></div>
         </div>
         <div class="build-body">
           <div class="build-tier">Gaming</div>
@@ -340,7 +399,6 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem
   </div>
 </section>
 
-<!-- PRICING -->
 <section id="pricing">
   <div class="container">
     <div class="center">
@@ -393,7 +451,6 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="container">
     <div class="center">
@@ -423,6 +480,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem
         </div>
       </div>
       <form class="contact-form" action="https://formspree.io/f/mzdwngog" method="POST">
+        <input type="hidden" name="_subject" id="formSubject" value="New Inquiry — prismaticcustompcs.com">
         <div class="form-row">
           <div class="form-group">
             <label>Name</label>
@@ -435,7 +493,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem
         </div>
         <div class="form-group">
           <label>Service</label>
-          <select name="service">
+          <select name="service" id="serviceSelect">
             <option value="">Select a service...</option>
             <option>Custom PC Build</option>
             <option>Computer Repair</option>
@@ -453,7 +511,6 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-copy">© 2026 Prismatic Custom PC's. All rights reserved.</div>
@@ -466,13 +523,11 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem
 </footer>
 
 <script>
-// Scroll animations
 const obs = new IntersectionObserver((entries) => {
   entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 
-// Smooth scroll for nav links
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
@@ -480,6 +535,78 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if(t) t.scrollIntoView({ behavior:'smooth' });
     document.querySelector('.nav-links')?.classList.remove('open');
   });
+});
+
+let heroIndex = 0;
+const heroTrack = document.getElementById('heroTrack');
+const heroSlides = heroTrack ? heroTrack.children.length : 0;
+const heroDots = document.getElementById('heroDots');
+
+if(heroDots && heroSlides > 1){
+  for(let i = 0; i < heroSlides; i++){
+    const dot = document.createElement('button');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.onclick = () => heroGoTo(i);
+    heroDots.appendChild(dot);
+  }
+}
+
+function heroGoTo(i){
+  heroIndex = ((i % heroSlides) + heroSlides) % heroSlides;
+  heroTrack.style.transform = 'translateX(-' + (heroIndex * 100) + '%)';
+  heroDots.querySelectorAll('.dot').forEach((d,di) => d.classList.toggle('active', di === heroIndex));
+}
+function heroSlide(dir){ heroGoTo(heroIndex + dir); }
+
+let heroAuto = setInterval(() => heroSlide(1), 5000);
+document.getElementById('heroCarousel')?.addEventListener('mouseenter', () => clearInterval(heroAuto));
+document.getElementById('heroCarousel')?.addEventListener('mouseleave', () => { heroAuto = setInterval(() => heroSlide(1), 5000); });
+
+let heroTouchStart = 0;
+document.getElementById('heroCarousel')?.addEventListener('touchstart', e => { heroTouchStart = e.touches[0].clientX; });
+document.getElementById('heroCarousel')?.addEventListener('touchend', e => {
+  const diff = heroTouchStart - e.changedTouches[0].clientX;
+  if(Math.abs(diff) > 50) heroSlide(diff > 0 ? 1 : -1);
+});
+
+document.querySelectorAll('[data-carousel]').forEach(carousel => {
+  const track = carousel.querySelector('.card-carousel-track');
+  const images = track.querySelectorAll('img');
+  const dotsContainer = carousel.querySelector('.card-carousel-dots');
+  if(images.length <= 1) return;
+  images.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.onclick = () => cardGoTo(carousel, i);
+    dotsContainer.appendChild(dot);
+  });
+  carousel.dataset.index = '0';
+  let touchStart = 0;
+  carousel.addEventListener('touchstart', e => { touchStart = e.touches[0].clientX; });
+  carousel.addEventListener('touchend', e => {
+    const diff = touchStart - e.changedTouches[0].clientX;
+    if(Math.abs(diff) > 40) cardSlide(carousel.querySelector('.card-carousel-btn'), diff > 0 ? 1 : -1);
+  });
+});
+
+function cardGoTo(carousel, i){
+  const track = carousel.querySelector('.card-carousel-track');
+  const total = track.querySelectorAll('img').length;
+  const index = ((i % total) + total) % total;
+  carousel.dataset.index = index;
+  track.style.transform = 'translateX(-' + (index * 100) + '%)';
+  carousel.querySelectorAll('.card-carousel-dots .dot').forEach((d,di) => d.classList.toggle('active', di === index));
+}
+
+function cardSlide(btn, dir){
+  const carousel = btn.closest('[data-carousel]');
+  const current = parseInt(carousel.dataset.index || 0);
+  cardGoTo(carousel, current + dir);
+}
+
+document.getElementById('serviceSelect').addEventListener('change', function(){
+  var prefix = this.value || 'General';
+  document.getElementById('formSubject').value = prefix + ' Inquiry — prismaticcustompcs.com';
 });
 </script>
 </body>
